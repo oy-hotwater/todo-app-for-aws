@@ -48,13 +48,44 @@ app.post("/add", async (req, res) => {
   }
 
   try {
-    // 🔥 プロの作法1: プレースホルダー（?）を使ったSQLインジェクション対策
+    // プロの作法1: プレースホルダー（?）を使ったSQLインジェクション対策
     await pool.query("INSERT INTO tasks (title) VALUES (?)", [title]);
 
-    // 🔥 プロの作法2: PRGパターンの実装（トップページへリダイレクト）
+    // プロの作法2: PRGパターンの実装（トップページへリダイレクト）
     res.redirect("/");
   } catch (error) {
     console.error("タスク追加エラー:", error);
+    res.status(500).send("サーバーエラーが発生しました");
+  }
+});
+
+// 【機能3】タスクを完了にする (UPDATE)
+app.post("/complete/:id", async (req, res) => {
+  // URLに含まれるID (:id) を取得
+  const taskId = req.params.id;
+  try {
+    // status を 'completed' に更新するSQL
+    await pool.query("UPDATE tasks SET status = ? WHERE id = ?", [
+      "completed",
+      taskId,
+    ]);
+    res.redirect("/");
+  } catch (error) {
+    console.error("更新エラー:", error);
+    res.status(500).send("サーバーエラーが発生しました");
+  }
+});
+
+// 【機能4】タスクを削除する (DELETE)
+app.post("/delete/:id", async (req, res) => {
+  // URLに含まれるID (:id) を取得
+  const taskId = req.params.id;
+  try {
+    // 指定されたIDのタスクを削除するSQL
+    await pool.query("DELETE FROM tasks WHERE id = ?", [taskId]);
+    res.redirect("/");
+  } catch (error) {
+    console.error("削除エラー:", error);
     res.status(500).send("サーバーエラーが発生しました");
   }
 });
