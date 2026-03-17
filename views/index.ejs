@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>マイToDoアプリ</title>
+    <style>
+        /* 最低限の見た目を整えるCSS */
+        body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; }
+        .task-card { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
+        .date { font-size: 0.8em; color: #666; }
+    </style>
+</head>
+<body>
+    <h1>タスク一覧</h1>
+
+    <form action="/add" method="POST" style="margin-bottom: 20px;">
+        <input type="text" name="title" placeholder="新しいタスクを入力" required>
+        <button type="submit">追加</button>
+    </form>
+
+    <% if (tasks.length === 0) { %>
+        <p>タスクはまだありません。</p>
+    <% } else { %>
+        <% tasks.forEach(task => { %>
+            <div class="task-card">
+                <h3><%= task.title %></h3>
+                <p>状態: <%= task.status === 'pending' ? '未完了' : '完了' %></p>
+                <p class="date">作成日: <%= new Date(task.created_at).toLocaleString('ja-JP') %></p>
+            </div>
+        <% }) %>
+    <% } %>
+</body>
+</html>
