@@ -1,0 +1,5 @@
+# ローカルのNode.js関連フォルダ
+node_modules/
+
+# 環境変数
+.env
