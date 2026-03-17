@@ -38,9 +38,25 @@ app.get("/", async (req, res) => {
 });
 
 // 【機能2】新規タスクの追加 (POST)
-app.get("/add", (req, res) => {
-  // 実際にはフォームからPOSTされる想定ですが、テスト用にGETで作っています（後で修正します）
-  res.send("タスク追加機能は後ほど実装します");
+app.post("/add", async (req, res) => {
+  // フォームから送信された 'title' を取得し、前後の空白を削除（トリミング）
+  const title = req.body.title.trim();
+
+  // 空のタスクが送信された場合のバリデーション（防御）
+  if (!title) {
+    return res.status(400).send("タスク名を入力してください。");
+  }
+
+  try {
+    // 🔥 プロの作法1: プレースホルダー（?）を使ったSQLインジェクション対策
+    await pool.query("INSERT INTO tasks (title) VALUES (?)", [title]);
+
+    // 🔥 プロの作法2: PRGパターンの実装（トップページへリダイレクト）
+    res.redirect("/");
+  } catch (error) {
+    console.error("タスク追加エラー:", error);
+    res.status(500).send("サーバーエラーが発生しました");
+  }
 });
 
 app.listen(port, () => {
