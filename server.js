@@ -48,10 +48,10 @@ app.post("/add", async (req, res) => {
   }
 
   try {
-    // 🔥 プロの作法1: プレースホルダー（?）を使ったSQLインジェクション対策
+    // プロの作法1: プレースホルダー（?）を使ったSQLインジェクション対策
     await pool.query("INSERT INTO tasks (title) VALUES (?)", [title]);
 
-    // 🔥 プロの作法2: PRGパターンの実装（トップページへリダイレクト）
+    // プロの作法2: PRGパターンの実装（トップページへリダイレクト）
     res.redirect("/");
   } catch (error) {
     console.error("タスク追加エラー:", error);
