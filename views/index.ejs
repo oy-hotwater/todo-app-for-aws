@@ -26,6 +26,18 @@
                 <h3><%= task.title %></h3>
                 <p>状態: <%= task.status === 'pending' ? '未完了' : '完了' %></p>
                 <p class="date">作成日: <%= new Date(task.created_at).toLocaleString('ja-JP') %></p>
+                
+                <div style="margin-top: 10px;">
+                    <% if (task.status === 'pending') { %>
+                        <form action="/complete/<%= task.id %>" method="POST" style="display:inline;">
+                            <button type="submit">完了にする</button>
+                        </form>
+                    <% } %>
+
+                    <form action="/delete/<%= task.id %>" method="POST" style="display:inline;">
+                        <button type="submit" style="color: #dc3545; background: none; border: 1px solid #dc3545; padding: 2px 5px; cursor: pointer;">削除</button>
+                    </form>
+                </div>
             </div>
         <% }) %>
     <% } %>
