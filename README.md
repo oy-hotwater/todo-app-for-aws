@@ -129,9 +129,11 @@ node server.js
 
 ※ 構築手順の詳細は [docs/aws-step2-vpc-setup.md](docs/aws-step2-vpc-setup.md) を参照。
 
-- [ ] Step 3: データベースのセキュアな配置 (Amazon RDS)
+- [x] Step 3: データベースのセキュアな配置 (Amazon RDS)
 
 プライベートサブネットにMySQLを構築し、EC2からの通信のみを許可する最小権限のセキュリティグループを設定する。
+
+※ 構築手順の詳細は [docs/aws-step3-rds-setup.md](docs/aws-step3-rds-setup.md) を参照。
 
 - [ ] Step 4: Webサーバーの構築とアプリのデプロイ (Amazon EC2)
 
