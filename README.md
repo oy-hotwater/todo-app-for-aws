@@ -135,9 +135,11 @@ node server.js
 
 ※ 構築手順の詳細は [docs/aws-step3-rds-setup.md](docs/aws-step3-rds-setup.md) を参照。
 
-- [ ] Step 4: Webサーバーの構築とアプリのデプロイ (Amazon EC2)
+- [x] Step 4: Webサーバーの構築とアプリのデプロイ (Amazon EC2)
 
-EC2を立ち上げ、Node.js環境を構築して本ソースコードをデプロイする（環境変数の安全な読み込みを含む）。
+プライベートサブネットにEC2を立ち上げ、SSM経由でセキュアに接続。Node.js 22環境を構築し、PM2を用いてアプリケーションを永続化しました。
+
+※ 構築手順の詳細は [docs/aws-step4-ec2-setup.md](docs/aws-step4-ec2-setup.md) を参照。
 
 - [ ] Step 5: 可用性とセキュリティの向上 (ALB / Route 53)
 
